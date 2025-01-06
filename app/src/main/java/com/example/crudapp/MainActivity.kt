@@ -1,9 +1,11 @@
 package com.example.crudapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,6 +18,7 @@ import com.example.crudapp.data.User
 import com.example.crudapp.databinding.ActivityMainBinding
 import com.example.crudapp.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -30,6 +33,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root);
 
+        val toolbar: androidx.appcompat.widget.Toolbar = binding.customToolbar;
+        setSupportActionBar(toolbar);
+
+        val btnToolbar : Button = binding.buttonInToolbar;
+        btnToolbar.setOnClickListener {
+            startActivity(Intent(this,UserActivity::class.java));
+        }
+
         userVm = ViewModelProvider(this)[UserViewModel::class.java];
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -38,13 +49,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val etName: EditText = binding.etName
-        val etEmail: EditText = binding.etEmail
         val rvUsers: RecyclerView = binding.rvUsers
-
-        binding.addUser.setOnClickListener {
-            userVm.insertUser(User(name = "Pasha", email = "pasha@gmail.com"));
-        }
 
         adapter = UserAdapter { user -> userVm.deleteUser(user) }
         rvUsers.layoutManager = LinearLayoutManager(this)
