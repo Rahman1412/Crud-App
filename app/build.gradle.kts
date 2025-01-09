@@ -68,6 +68,17 @@ dependencies {
     val lifecycle_version = "2.8.7"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    //Retrofit & GsonConvertor Dependency
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    //Paging 3 Dependency
+    val paging_version = "3.3.5"
+    implementation("androidx.paging:paging-runtime:$paging_version")
+
+    //Glid dependency
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
 
 kapt {

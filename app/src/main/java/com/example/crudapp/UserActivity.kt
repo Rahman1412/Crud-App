@@ -1,5 +1,6 @@
 package com.example.crudapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.crudapp.data.User
 import com.example.crudapp.databinding.ActivityUserBinding
+import com.example.crudapp.viewmodel.OmdbVm
 import com.example.crudapp.viewmodel.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +49,11 @@ class UserActivity : AppCompatActivity() {
             email.text?.clear();
             Toast.makeText(this,"User added successfully!",Toast.LENGTH_SHORT).show();
             finish();
+        }
+
+
+        binding.searchMovie.setOnClickListener {
+            startActivity(Intent(this,MovieActivity::class.java));
         }
     }
 }

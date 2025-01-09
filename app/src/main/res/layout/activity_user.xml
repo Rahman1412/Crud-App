@@ -49,6 +49,14 @@
             android:text="Add User"/>
 
 
+        <Button
+            android:id="@+id/searchMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search Movie"
+            />
+
+
     </LinearLayout>
 
 
