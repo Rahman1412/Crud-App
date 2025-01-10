@@ -65,5 +65,13 @@ class UserActivity : AppCompatActivity() {
         binding.prefStorage.setOnClickListener {
             startActivity(Intent(this,PrefActivity::class.java));
         }
+
+        binding.startService.setOnClickListener {
+            userVm.startService(this)
+        }
+
+        binding.stopService.setOnClickListener {
+            userVm.stopService(this)
+        }
     }
 }

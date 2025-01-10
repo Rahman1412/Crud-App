@@ -1,5 +1,6 @@
 package com.example.crudapp.di
 
+import android.app.NotificationManager
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
@@ -60,6 +61,11 @@ object AppModule {
     @Provides
     fun provideUserDao(database: AppDatabase):UserDao{
         return database.UserDao();
+    }
+
+    @Provides
+    fun provideNotificationManager(context: Context): NotificationManager {
+        return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
 }
