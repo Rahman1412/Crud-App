@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.protobuf") version "0.9.4"
 }
 
 android {
@@ -79,8 +80,29 @@ dependencies {
 
     //Glid dependency
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //Shared Preferences Dependency
+    // First create proto file then sync
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("com.google.protobuf:protobuf-javalite:3.25.0")
 }
 
 kapt {
     correctErrorTypes = true
+}
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.7"
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.plugins{
+                create("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }

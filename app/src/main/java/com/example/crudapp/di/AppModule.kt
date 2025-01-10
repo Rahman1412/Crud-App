@@ -1,10 +1,15 @@
 package com.example.crudapp.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.dataStoreFile
 import androidx.room.Room
 import com.example.crudapp.database.AppDatabase
 import com.example.crudapp.database.UserDao
 import com.example.crudapp.networks.ApiService
+import com.example.crudapp.util.UserPreferences
+import com.example.crudapp.utils.UserPreferencesSerializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +23,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun ProvideProtoDataStore(
+        @ApplicationContext context: Context
+    ) : DataStore<UserPreferences>{
+        return DataStoreFactory.create(
+            serializer = UserPreferencesSerializer,
+            produceFile = {
+                context.dataStoreFile("user_prefs.pb")
+            }
+        )
+    }
 
     @Provides
     @Singleton

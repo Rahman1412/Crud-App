@@ -56,6 +56,12 @@
             android:text="Search Movie"
             />
 
+        <Button
+            android:id="@+id/prefStorage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pref Storage"/>
+
 
     </LinearLayout>
 

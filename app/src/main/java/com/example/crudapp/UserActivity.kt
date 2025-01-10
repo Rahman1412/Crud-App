@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +16,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.crudapp.data.User
 import com.example.crudapp.databinding.ActivityUserBinding
 import com.example.crudapp.viewmodel.OmdbVm
+import com.example.crudapp.viewmodel.StorageVm
 import com.example.crudapp.viewmodel.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +30,7 @@ class UserActivity : AppCompatActivity() {
     private lateinit var userVm: UserViewModel;
     private var id: Int? = null;
 
+    private val storageVm : StorageVm by viewModels();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +48,9 @@ class UserActivity : AppCompatActivity() {
         email.setText(intent.getStringExtra("email"));
 
         binding.addUser.setOnClickListener {
-            userVm.insertUser(User(id = id!!.toInt() ,name = name.text.toString(),email = email.text.toString()));
+            val user : User = User(id = id!!.toInt() ,name = name.text.toString(),email = email.text.toString())
+            storageVm.updateStorage(user)
+            userVm.insertUser(user);
             name.text?.clear();
             email.text?.clear();
             Toast.makeText(this,"User added successfully!",Toast.LENGTH_SHORT).show();
@@ -54,6 +60,10 @@ class UserActivity : AppCompatActivity() {
 
         binding.searchMovie.setOnClickListener {
             startActivity(Intent(this,MovieActivity::class.java));
+        }
+
+        binding.prefStorage.setOnClickListener {
+            startActivity(Intent(this,PrefActivity::class.java));
         }
     }
 }
